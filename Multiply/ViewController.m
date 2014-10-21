@@ -31,45 +31,31 @@
 - (IBAction)onCalculateButtonPressed:(id)sender {
 
 //retrieve numberTextField.text and convert it to an int
-    NSString *stringNumber = self.numberTextField.text;
-    int valueNumber = [stringNumber intValue];
+    int valueNumber = self.numberTextField.text.intValue;
 
 //retrieve multiplierLabel.text and convert it to an int
-    NSString *stringMultiplier = self.multiplierLabel.text;
-    int valueMultiplier = [stringMultiplier intValue];
+    int valueMultiplier = self.multiplierLabel.text.intValue;
 
 //Use different method to calculate the value of valueFinal based on the index of Segment
-    if (self.operatorSegmentControl.selectedSegmentIndex == 0) {
-        self.valueFinal = valueNumber * valueMultiplier;
-    }
-    else if (self.operatorSegmentControl.selectedSegmentIndex == 1){
-        self.valueFinal = valueNumber / valueMultiplier;
-    }
+    self.valueFinal = (self.operatorSegmentControl.selectedSegmentIndex == 0) ? valueNumber * valueMultiplier : valueNumber / valueMultiplier;
 
 //assign the value of valueFinal to answerLabel.text
-    NSString *stringFinal = [NSString stringWithFormat:@"%i", (int)self.valueFinal];
-    self.answerLabel.text = stringFinal;
+    self.answerLabel.text = [NSString stringWithFormat:@"%i", (int)self.valueFinal];
 
 //change view.backgroundColor based on the value of valueFinal
-    if(self.valueFinal >= 20){
-        self.view.backgroundColor = [UIColor greenColor];
-    }
-    else {
-        self.view.backgroundColor = [UIColor whiteColor];
-    }
+    self.view.backgroundColor = (self.valueFinal >= 20.0) ? [UIColor greenColor] : [UIColor whiteColor];
 
 //change answerLabel.text based on the value of valueFinal
-    if (self.valueFinal % 3 == 0 && self.valueFinal % 5 == 0) {
+    BOOL valueIsMultipleOf5 = self.valueFinal >= 5 && self.valueFinal % 5 == 0;
+    BOOL valueIsMultipleOf3 = self.valueFinal >= 3 && self.valueFinal % 3 == 0;
+    if (valueIsMultipleOf5 && valueIsMultipleOf3){
         self.answerLabel.text = @"fizzbuzz";
     }
-    else if (self.valueFinal % 5 == 0) {
+    else if (valueIsMultipleOf5) {
         self.answerLabel.text = @"buzz";
     }
-    else if (self.valueFinal % 3 == 0) {
+    else if (valueIsMultipleOf3) {
         self.answerLabel.text = @"fizz";
-    }
-    else {
-        self.answerLabel.text = stringFinal;
     }
 
 //dismiss keyboard of numberTextField
