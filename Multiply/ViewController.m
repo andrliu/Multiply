@@ -23,11 +23,13 @@
 }
 
 //change multiplierLabel.text with UISlider
-- (IBAction)vauleChangedSlider:(UISlider *)sender {
+- (IBAction)vauleChangedSlider:(UISlider *)sender
+{
     self.multiplierLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)sender.value];
 }
 
-- (IBAction)onCalculateButtonPressed:(UIButton *)sender {
+- (IBAction)onCalculateButtonPressed:(UIButton *)sender
+{
 
 //retrieve numberTextField.text and convert it to an int
     NSInteger valueNumber = self.numberTextField.text.integerValue;
@@ -46,7 +48,9 @@
 
 //change answerLabel.text based on the value of valueFinal
     BOOL valueIsMultipleOf5 = valueFinal >= 5 && valueFinal % 5 == 0;
+
     BOOL valueIsMultipleOf3 = valueFinal >= 3 && valueFinal % 3 == 0;
+
     if (valueIsMultipleOf5 && valueIsMultipleOf3)
     {
         self.answerLabel.text = @"fizzbuzz";
@@ -56,14 +60,15 @@
         {
             self.answerLabel.text = @"buzz";
         }
-        else
-            if (valueIsMultipleOf3)
-            {
-                self.answerLabel.text = @"fizz";
-            }
+    else
+        if (valueIsMultipleOf3)
+        {
+            self.answerLabel.text = @"fizz";
+        }
 
 //dismiss keyboard of numberTextField
     [self.numberTextField resignFirstResponder];
+
 }
 
 @end
